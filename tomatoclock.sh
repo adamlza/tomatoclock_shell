@@ -79,6 +79,6 @@ tomatoclock(){
 }
 
 tomatoclock 25 5 15 3
-# 朴实无华的番茄钟，只需根据自己需要改最后一行就好
-# tomatoclock $工作时长 $休息时长 $长休息时长 $循环轮数
-# espeak 可替换为mpv/mplayer
+# Simple Tomato Clock
+# tomatoclock $WORK_TIME $INTERVAL $LONG_INTERVAL $CYCLE_COUNT
+# espeak can repleaced by mpv/mplayer
