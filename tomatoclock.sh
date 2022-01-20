@@ -40,6 +40,19 @@ greenclock(){
 		fi
 	done
 }
+judge(){
+	local readep=$1"[y/n]"
+	local clocktime=$2
+	local clockspeak=$3
+	read -ep "$readep" ju
+	if [ $ju == y ];then
+		greenclock $clocktime
+		espeak "$clockspeak"
+	elif [ $ju == n ];then
+		echo clock stoped.
+		exit 0
+	fi
+}
 tomatoclock(){
 	local mw=$1
 	local mr=$2
@@ -48,32 +61,12 @@ tomatoclock(){
 	for ro in `seq 1 $cyc`;do
 		if [ $ro -lt $cyc ];then
 			echo round \#"$ro"/$cyc
-			printf "\rStart to Work?[y]:"
-			read -e judge
-			if [ $judge == y ];then
-				greenclock $mw
-				espeak It's time to having rest'
-			fi
-			printf "\rStart to Rest?[y]:"
-                        read -e judge1
-			if [ $judge == y ];then
-                                greenclock $mr
-				espeak It's time to work'
-			fi
+			judge "Start to Work?" $mw "It's time to having rest'"
+			judge "Start to Rest?" $mr "It's time to work'"
 		else
 			echo round \#"$ro"/$cyc
-                        printf "\rStart to Work?[y]:"
-                        read -e judge
-                        if [ $judge == y ];then
-                                greenclock $mw
-				espeak It's time to having long rest'
-			fi
-			printf "\rStart to Long Rest?[y]:"
-                        read -e judge1
-                        if [ $judge == y ];then
-                                greenclock $mlr
-                                espeak It's time to start a new turns'
-                        fi
+			judge "Start to Work?" $mw "It's time to having long rest'"
+			judge "Start to have a long rest?" $mlr "It's time to start a new turns'"
 		fi
 	done
 }
